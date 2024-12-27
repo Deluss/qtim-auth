@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { useAuthStore } from '../store/auth'
-import { useToast, storeToRefs } from '#imports'
+import { useToast, storeToRefs, defineNuxtPlugin } from '#imports'
 
 export default defineNuxtPlugin(() => {
 	const authStore = useAuthStore()
