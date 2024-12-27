@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia'
-import type { ProfileDTO } from '~/types/profile'
-import { useCookie, useRouter, useRoute, useToast } from '#imports'
-import type { LoginRequestDTO, LoginResponseDTO } from '~/types/auth'
+import { useCookie, useRouter, useRoute, useToast, ref, computed } from '#imports'
 
 export const useAuthStore = defineStore('auth', () => {
-	const user = ref<ProfileDTO | null>(null)
+	const user = ref<any>(null)
 	const accessToken = useCookie('auth.token')
 	const refreshToken = useCookie('auth.refresh_token')
 	const pages = ref({
@@ -20,7 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
 	const fetchUser = async () => {
 		try {
 			const opts = accessToken.value ? { headers: { Authorization: `Bearer ${accessToken.value}` } } : {}
-			user.value = await $fetch<ProfileDTO>('/api/user/profile', opts)
+			user.value = await $fetch<any>('/api/user/profile', opts)
 			if (route.path === pages.value.login) {
 				await router.push(pages.value.home)
 			}
@@ -48,9 +46,9 @@ export const useAuthStore = defineStore('auth', () => {
 		}
 	})()
 
-	const login = async (body: LoginRequestDTO) => {
+	const login = async (body: any) => {
 		try {
-			const response = await $fetch<LoginResponseDTO>('/api/admin/auth/login', {
+			const response = await $fetch<any>('/api/admin/auth/login', {
 				body,
 				method: 'POST'
 			})
@@ -73,7 +71,7 @@ export const useAuthStore = defineStore('auth', () => {
 			const body = {
 				refreshToken: refreshToken.value,
 			}
-			const response = await $fetch<LoginResponseDTO>('/api/auth/refresh', {
+			const response = await $fetch<any>('/api/auth/refresh', {
 				method: 'POST',
 				body,
 				headers: {
