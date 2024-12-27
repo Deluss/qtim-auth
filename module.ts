@@ -2,8 +2,8 @@ import { defineNuxtModule, createResolver, addPlugin, addImportsDir, addRouteMid
 
 export default defineNuxtModule({
 	meta: {
-		name: 'auth-module',
-		configKey: 'authModule',
+		name: 'qtim-auth',
+		configKey: 'auth',
 	},
 	setup(_, nuxt) {
 		const { resolve } = createResolver(import.meta.url);
